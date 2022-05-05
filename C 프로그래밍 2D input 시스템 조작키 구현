@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class player : MonoBehaviour
+{
+    private Playerinputactions playerinput;
+    private Rigidbody2D rb;
+    [SerializeField] private float speed  = 10f;
+    void Awake()
+    {
+        playerinput = new Playerinputactions();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        playerinput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerinput.Disable();
+    }
+    void FixedUpdate()
+    {
+        Vector2 moveinput = playerinput.movement.move.ReadValue<Vector2>();
+        rb.velocity = moveinput * speed;
+    }
+}
