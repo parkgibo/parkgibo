@@ -1,0 +1,209 @@
+/*using System;
+using static System.Console;
+namespace 연습문제_2 // 연습문제 2-1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("여러분 안녕하세요?\n반갑습니다!");
+        }
+    } 
+}*/
+
+
+/*using System;
+class Program // 연습문제 2-2
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Hello World!");
+    }
+}*/
+
+
+
+
+/*using System;
+namespace RectArea
+{
+    class MainApp // 연습문제 3-1
+    {
+        public static void Main()
+        {
+
+            Console.WriteLine("사각형의 너비를 입력하세요.");
+            string width = Console.ReadLine();
+            Console.WriteLine("사각형의 너비를 입력하세요.");
+            string height = Console.ReadLine();
+            int maxnum = int.Parse(width) * int.Parse(height);
+            Console.WriteLine($"사각형의 넒이는 :" [maxnum]);
+        }
+    }
+}*/
+
+// 3-2
+/*
+ * float a = 7.3f;
+ * float b = 3.14f;
+ * double c =  a*b; 위에 a와 b를 수정하면 사용가능
+ * char d = "abc"; char형은 한개의 문자를 데이터 타입으로 따오표로 묶어줘야함
+ * string e = "한"; 쌍따움표로 표현
+*/
+
+// 3-3 값 형식 : 데이터를 스택에 할당여 값을 나타낸다. 참조형식 : 데이터를 힙에 할당하고 스택에 데이터 주소를 가르킴
+
+// 3-4 박싱 : 값 형식을 참조 형식으로 변환   언박싱 : 참조 형식을 값 형식으로 변환
+
+// 3-5 int , String
+
+
+
+
+
+
+// 4-1. i++은 후위 연산자로 싫행괸 후에 증가된다. ++i는 전위 연산자로 코드가 실행괸 후에 증가된 상태로 실행이 된다.
+
+// 4-2. 답은 2번이다
+/*
+ i = i+1 //2
+ i++; //1
+ ++i; //2
+ i+=1; //2
+*/
+
+// 4-3  4 , 1
+
+// 4-4  int a = 0xF0 // hex와 byte 찻아보면 정답이 나온다.
+
+// 4-5  true 일 경우 첫번째 값, false일 경우 두 번째 값
+
+
+
+
+
+
+/*using System;
+using static System.Console;
+
+namespace parkgibo
+{
+    class Mainapp // 5-1
+    {
+        static void Main()
+        {
+            for(int i = 0; i<5; i++)//몇개의 줄을 담당
+            {
+                for(int j =0;j<=i; j++) // 출력하는 *담당
+                {
+                    Write("*");
+                }
+                WriteLine();
+            }
+        }
+    }
+}*/
+
+/*using System;
+using static System.Console;
+
+namespace baekjoon
+{
+    class mainapp // 5-2
+    {
+        static void Main()
+        {
+            for(int i = 0; i<5;i++)
+            {
+                for(int j=5; j>i; j--)
+                {
+                    Write("*");
+                }
+                WriteLine();
+            }
+        }
+    }
+}*/
+
+
+/*using System;
+using static System.Console;
+
+namespace baekjoon
+{
+    class MainApp // 5-3 while
+    {
+        static void Main()
+        {
+            int i = 0;
+            while (i < 5) 
+            {
+                int j = 0;
+                while (j <= i) 
+                {
+                    Write("*");
+                    j++;
+                }
+                WriteLine();
+                ++i;
+            }
+        }
+    }
+}*/
+
+/*using System;
+using static System.Console;
+using System.Text;
+using System.IO;
+ 
+namespace baekjoon
+{
+    class MainApp // 5-3 do
+    {
+        static void Main()
+        {
+            int i = 5;
+
+            do
+            {
+                int j = 0;
+                while (j < i)
+                {
+                    Write("*");
+                    j++;
+                }
+                WriteLine();
+                i--;
+            }
+            while (i > 0);
+        }
+    }
+}*/
+
+/*using System;
+using static System.Console;
+
+namespace parkgibo
+{
+    class manimpp // 5-4
+    {
+        static void Main()
+        {
+            Write("반복 횟수를 입력하세요:");
+            int input = int.Parse(Console.ReadLine());
+
+            if(input<=0)
+            {
+                WriteLine("0보다 작거나 같은 수는 입력할 수 없습니다.");
+            }
+            for(int i= 0;i<input; i++)
+            {
+                for(int j = 0; j<i;j++)
+                {
+                    Write("*");
+                }
+                WriteLine();
+            }
+        }
+    }
+}*/
