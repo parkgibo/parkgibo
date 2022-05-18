@@ -72,8 +72,12 @@ double area(double radius)
 
 }
 int main(void) 
+int vison = 0;
 double radius;
-int VISON;
+int exp;
+scanf_s("%d", vison);
+printf("원의 면적은?");
+VISON(vison)
 #ifdef USA
 	printf("Please enter radius of a circle(inch):");
 #else
