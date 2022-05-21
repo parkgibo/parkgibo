@@ -1,0 +1,154 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class player : MonoBehaviour
+{
+
+    void Start()
+    {
+        int pack = 2; // 정수형 데이터
+        float pack1 = 56.4f; // 숫자형 데이터
+        string pack2 = "기보"; // 문자열 데이터
+        bool pack3 = true; // 논리형 데이터
+
+        Debug.Log("당신의 이름은?"); // 당신의 이름은? 출력
+        Debug.Log(pack2); // 문자열 데이터 출력
+        Debug.Log("당신의 나이는?"); // 당신의 나이는? 출력
+        Debug.Log(pack); // 정수형 데이터 출력
+        Debug.Log("당신의 몸무게는?"); // 당신의 몸무게는? 출력
+        Debug.Log(pack1); // 실수형 데이터 출력
+        Debug.Log("당신은 인간인가?"); // 당신은 인간인다? 출력
+        Debug.Log(pack3); // 논리형 데이터 출력
+
+
+        //그룹형 변수
+        string[] parkgibo = { "박기보1", "박기보2", "박기보3" }; //변수 배열 안에 박기보1,2,3 선언
+        int[] parkgibo1 = new int[3]; // 변수 parkigbo1 정수형 선언                
+        parkgibo1[0] = 1; //1변수 선언
+        parkgibo1[1] = 6; //2변수 선언
+        parkgibo1[2] = 30;//3변수 선언
+        float[] pakrgibo2 = new float[3]; // 변수 parkigbo2 실수형 선언  
+        pakrgibo2[0] = 25;//25변수 선언
+        pakrgibo2[1] = 30;//30변수 선언
+        pakrgibo2[2] = 50;//50변수 선언
+
+        string[] parkgibo3 = { "강도", "도둑", "사기꾼" }; // 변수 배열 안에 강도,도둑,사기꾼 선언
+        Debug.Log("우리집에 몇명의 범죄자가 존재?"); // (이제부터 간단히 설명) 출력
+        Debug.Log(parkgibo3[0]); //강도
+        Debug.Log(parkgibo3[1]); //도둑
+        Debug.Log(parkgibo3[2]); //사기꾼
+
+        Debug.Log("우리집에 몇명의 박기보가 존재하나?"); // 출력
+        Debug.Log(parkgibo[0]); //박기보1
+        Debug.Log(parkgibo[1]); //박기보2
+        Debug.Log(parkgibo[2]); //박기보3
+        Debug.Log("우리집에 존재하는 나의 몸무개는?");//출력
+        Debug.Log(parkgibo1[0]);// 1출력
+        Debug.Log(parkgibo1[1]);// 2출력
+        Debug.Log(parkgibo1[2]);// 3출력
+        Debug.Log("우리집에 존재하는 나의 체력은?");
+        Debug.Log(pakrgibo2[0]);// 25출력
+        Debug.Log(pakrgibo2[1]);// 30출력
+        Debug.Log(pakrgibo2[2]);// 50출력
+
+        List<string> item = new List<string>(); // 리스트 기능으로 item 변수 문자열 선언 무기 1,2 출력
+        item.Add("무기1"); 
+        item.Add("무기2"); 
+
+        Debug.Log("박기보가 가지고 있는 무기");
+        Debug.Log(item[0]);
+        Debug.Log(item[1]);
+
+        List<string> parkgiboitem = new List<string>(); // 리스트 기능으로 parkgiboitem 문자열 선언 호신용 아이템 1,2출력
+        parkgiboitem.Add("호신용 아이템1");
+        parkgiboitem.Add("호신용 아이템2");
+        Debug.Log("박기보가 가지고 있는 아이템");
+        Debug.Log(parkgiboitem[0]);
+        Debug.Log(parkgiboitem[1]);
+
+        List<string> pet = new List<string>(); //리스트 기능으로 pet 문자열 선언 고양이,강이지 출력
+        pet.Add("강아지");
+        pet.Add("고양이");
+        Debug.Log("우리집 애완동물");
+        Debug.Log(pet[0]);
+        Debug.Log(pet[1]);
+
+        int health = 2000; // 연산자 기능으로 (+,-,/,*) 기능사용
+
+        health = 2000 + 300;
+        health = health - 150;
+        pack = health / 200;
+        pack1 = pack * 8.15f;
+
+        Debug.Log("나의 체력은?");
+        Debug.Log(health);
+        Debug.Log("나의 유전자");
+        Debug.Log(pack);
+        Debug.Log("나의 몸무게");
+        Debug.Log(pack1);
+
+        int nexttime = 500 - (health % 300); // %기능 으로 나머지를 출력
+        Debug.Log("다음건강까지 남은 시간은?");
+        Debug.Log(nexttime);
+
+        string title = "뽀삐"; // 강아지 뽀삐 기보 출력 (중간에 있는 " " 뛰어쓰기이다.)
+        Debug.Log("강이지 이름은?");
+        Debug.Log(title + " " + pack2);
+
+        int happy = 100; //비교 연산자
+        pack3 = pack == happy; //비교 연산자로 pack3과 pack가 happy하다면 100출력
+        Debug.Log("너의 행복도는 충분한가?" + " " + pack3);
+
+        bool State = pack > 5;
+        Debug.Log("너의 행복도는 어떻니?" + " " + pack);
+        // > 초과 < 미만 >= 이상 <= 이하
+        int stamina = 60;
+
+        int me = 30;
+
+        bool root = stamina <= 20 || me <= 40; // or 연산자로 두값중 하나가 Ture 이면 Trur 출력
+                                               // 반대로 && 연산자를 사용하면 두 값중 하나가 True 이면 출력
+        string somebody = root ? "나쁨" : "좋음";
+        Debug.Log("당신의 상태는 어떠한가?" + " " + somebody);
+        // 삼항 연산자 root가 false 이면 b 출력
+
+        //조건문 만약 somebody가 나쁨이면 이상이 없거나 나의 상태가 나쁘다 출력
+        if (somebody == "나쁨")
+        {
+            Debug.Log("나의 상태가 나쁘다.");
+        }
+        else
+        {
+            Debug.Log("이상없음");
+        }
+        if(root && item[0] == "무기1") // OR 연산자로 root나 item이 무기1이면 무기1을 사용, 아님 무기2를 사용
+        {
+            item.RemoveAt(0);
+            stamina += 30;
+            Debug.Log("무기1를 사용하였습니다.");
+        }
+        else if(root && item[0] == "무기2")
+        {
+            item.RemoveAt(0);
+            me += 15;
+            Debug.Log("무기 2를 사용하였습니다.");
+        }
+        switch (parkgibo[2]) // swich를 사용하여 참조가 2일씨 할아버지 출현 그 외의 숫자를 사용하면 defult
+        {
+            case "박기보1":
+            case "박기보4":
+                Debug.Log("어머니 출현!!!");
+                break;
+            case "박기보2":
+                Debug.Log("아버지 출현!!!");
+                break;
+            case "박기보3":
+                Debug.Log("할아버지 출현!!!");
+                break;
+            default:
+                Debug.Log("고...조 할아버지 출현????");
+                break;
+        }
+    }
+}
