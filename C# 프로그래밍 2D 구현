@@ -12,7 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform bulletDirection;
     [SerializeField] private GameObject wall; // 벽 
     [SerializeField] private Transform wallDirection; // 벽 위치
+    [SerializeField] private GameObject projectprefab;
+
     [SerializeField]
+    private int attackLevel = 1;
     private float maxHp = 1; // 최대체력
     private float currentHP; // 현재체력
     private SpriteRenderer SpriteRenderer;
@@ -137,17 +140,42 @@ public class Player : MonoBehaviour
         _Rigidbody.AddForce(_Movement * _Speed);
 
     }
+    private void AttackBylevel()
+    {
+        GameObject cloneProject = null;
+
+        switch (attackLevel)
+        {
+            case 1:  // Level 01 : 기존과 같이 발사체 1개 생성
+                Instantiate(projectprefab, transform.position, Quaternion.identity);
+                break;
+            case 2: // 간격을 두고 전방으로 발사체 2개 생성
+                Instantiate(projectprefab, transform.position + Vector3.left * 0.2f, Quaternion.identity);
+                Instantiate(projectprefab, transform.position + Vector3.left * 0.2f, Quaternion.identity);
+                break;
+            case 3: // 전방으로 발사체 1개, 좌우 대각선 방향으로 발사체 각 1개 발사
+                Instantiate(projectprefab, transform.position, Quaternion.identity);
+                // 완쪽 대각선 방향으로 발사되는 발사체
+                cloneProject = Instantiate(projectprefab, transform.position, Quaternion.identity);
+                cloneProject.GetComponent<Input>().Equals(new Vector3(-0.2f, 1, 0));
+                // 오른쪽 대각선 방향으로 발사되는 발사체
+                cloneProject = Instantiate(projectprefab, transform.position, Quaternion.identity);
+                cloneProject.GetComponent<Input>().Equals(new Vector3(0.2f, 1, 0));
+                break;
+        }
+        
+    }
 }*/
 
-//bullet
 
+//bullet
 /*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject projectprefab;
+    
     [SerializeField]
     private float speed = 4f;
     private int attackLevel = 1;
@@ -179,30 +207,9 @@ public class bullet : MonoBehaviour
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
     }
-    private void AttackBylevel()
-    {
-        GameObject cloneProject = null;
-
-        switch (attackLevel)
-        {
-            case 1:
-                Instantiate(projectprefab, transform.position, Quaternion.identity);
-                break;
-            case 2:
-                Instantiate(projectprefab, transform.position + Vector3.left * 0.2f, Quaternion.identity);
-                Instantiate(projectprefab, transform.position + Vector3.left * 0.2f, Quaternion.identity);
-                break;
-            case 3:
-                Instantiate(projectprefab, transform.position, Quaternion.identity);
-                cloneProject = Instantiate(projectprefab, transform.position, Quaternion.identity);
-                cloneProject.GetComponent<Movement2D>().MoveTo(new Vector3(-0.2f, 1, 0));
-
-                cloneProject = Instantiate(projectprefab, transform.position, Quaternion.identity);
-                cloneProject.GetComponent<Movement2D>().MoveTo(new Vector3(0.2f, 1, 0));
-                break;
-        }
-    }
+    
 }*/
+
 //메인 카메라
 /*
 using System.Collections;
