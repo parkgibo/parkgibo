@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject projectprefab;
 
     [SerializeField]
-    private int attackLevel = 1;
+    private int maxattackLevel = 3; //공격 최대 레벨
+    private int attackLevel = 1; //공격레벨
     private float maxHp = 1; // 최대체력
     private float currentHP; // 현재체력
     private SpriteRenderer SpriteRenderer;
@@ -48,7 +49,11 @@ public class Player : MonoBehaviour
             
         }
     }
-
+    private int AttackLevel // 최대 공격레벨 설정
+    {
+        set => attackLevel = Mathf.Clamp(value, 1, maxattackLevel);
+        get => attackLevel;
+    }
     private void OnEnable()
     {
         _Input.Enable();
@@ -287,3 +292,36 @@ public class Enemy : MonoBehaviour
     }
 }
 */
+ //item
+/*using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum ItemType { PowerUP = 0, }
+public class item : MonoBehaviour
+{
+    [SerializeField] ItemType itemType;
+    private void Awake()
+    {
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            //아이템 흭득시 효과
+            Use(collision.gameObject);
+            //아이템 오브젝트 삭제
+            Destroy(gameObject);
+        }
+    }
+    public void Use(GameObject Player)
+    {
+        switch(itemType)
+        {
+            case ItemType.PowerUP:
+                object p = Player.GetComponent<Player>().AttackBylevel ++;
+                break;
+        }
+    }
+}*/
