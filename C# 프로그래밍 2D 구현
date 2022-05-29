@@ -1,0 +1,282 @@
+player
+/*using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Player : MonoBehaviour
+{
+    [SerializeField] float _Speed = 5f;
+    [SerializeField] Camera _Camera;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletDirection;
+    [SerializeField] private GameObject wall; // 벽 
+    [SerializeField] private Transform wallDirection; // 벽 위치
+    [SerializeField]
+    private float maxHp = 1; // 최대체력
+    private float currentHP; // 현재체력
+    private SpriteRenderer SpriteRenderer;
+    private bool isdie = false; // 사망하는 코드수정
+    private bool canShoot = true;
+    PlayerInput _Input;
+    Vector2 _Movement;
+    Vector2 _MousePos;
+    private Camera main;
+    private Animator animator; // 수정
+    private bool canWall = true; // 벽 제어 
+
+
+    Rigidbody2D _Rigidbody;
+
+    private void Awake()
+    {
+        _Input = new PlayerInput();
+        _Rigidbody = GetComponent<Rigidbody2D>();
+        currentHP = maxHp;
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>(); // 수정
+        
+    }
+    private void TakeDamage(float damage) //수정
+    {
+        currentHP -= damage; //수정 현재 체력이 damage 만큼 감소
+        if(currentHP <= 0) //수정 체력이 0이 될경우 플레이어 사망
+        {
+            
+        }
+    }
+
+    private void OnEnable()
+    {
+        _Input.Enable();
+
+        _Input.Control.Movement.performed += OnMovement;
+        _Input.Control.Movement.canceled += OnMovement;
+
+        _Input.Control.MousePoint.performed += OnMousePos;
+
+    }
+
+    private void OnDisable()
+    {
+        _Input.Control.Movement.performed -= OnMovement;
+        _Input.Control.Movement.canceled -= OnMovement;
+        _Input.Control.MousePoint.performed -= OnMousePos;
+
+        _Input.Disable();
+    }
+    private void OnMovement(InputAction.CallbackContext context)
+    {
+        _Movement = context.ReadValue<Vector2>();
+    }
+
+    private void OnMousePos(InputAction.CallbackContext context)
+    {
+        _MousePos = _Camera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+    }
+    void Start()
+    {
+        main = Camera.main;
+        _Input.Control.Shoot.performed += _ => PlayerShoot();
+        _Input.Control.wall.performed += _ => CreateWall(); //추가코드(벽) 
+    }
+
+    private void PlayerShoot()
+    {
+        if (!canShoot) return;
+
+        Vector2 mousePosition = _Input.Control.MousePoint.ReadValue<Vector2>();
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        GameObject g = Instantiate(bullet, bulletDirection.position, bulletDirection.rotation);
+        g.SetActive(true);
+        StartCoroutine(CanShoot());
+    }
+    private void CreateWall() // 추가 코드-> 벽 추가 
+    {
+        Vector2 mousePosition = _Input.Control.MousePoint.ReadValue<Vector2>();
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        GameObject W = Instantiate(wall, wallDirection.position, wallDirection.rotation);
+        W.SetActive(true);
+        StartCoroutine(CanWall());
+    }
+
+    IEnumerator CanShoot()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(.5f);
+        canShoot = true;
+    }
+    IEnumerator CanWall() // 벽 제어함수
+    {
+        canWall = false;
+
+        yield return new WaitForSeconds(1f); // 조건을 아이템 방식 찾아봐야함
+        canWall = true;
+    }
+   
+    
+    void Update()
+    {
+        if (isdie == true) return; //수정
+
+        Vector2 mouseScreenPosition = _Input.Control.MousePoint.ReadValue<Vector2>();
+        Vector3 mouseWorldPosition = main.ScreenToWorldPoint(mouseScreenPosition);
+        Vector3 targetDirection = mouseWorldPosition - transform.position;
+        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
+        _Rigidbody.MoveRotation(angle); ;
+        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+    }
+    public void ondie() // 수정
+    {
+        animator.SetTrigger("ondie");
+        Destroy(GetComponent<CircleCollider2D>());
+    } // 여기까지
+    private void FixedUpdate()
+    {
+       
+        _Rigidbody.AddForce(_Movement * _Speed);
+
+    }
+}*/
+
+//bullet
+
+/*using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+public class bullet : MonoBehaviour
+{
+    [SerializeField] private GameObject projectprefab;
+    [SerializeField]
+    private float speed = 4f;
+    private int attackLevel = 1;
+
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "BulletWall")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Awake()
+    {
+
+        Destroy(gameObject, 5.0f);
+
+    }
+
+    void Start()
+    {
+
+    }
+
+
+    void Update()
+    {
+        transform.Translate(Vector3.up * speed * Time.deltaTime);
+    }
+    private void AttackBylevel()
+    {
+        GameObject cloneProject = null;
+
+        switch (attackLevel)
+        {
+            case 1:
+                Instantiate(projectprefab, transform.position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(projectprefab, transform.position + Vector3.left * 0.2f, Quaternion.identity);
+                Instantiate(projectprefab, transform.position + Vector3.left * 0.2f, Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(projectprefab, transform.position, Quaternion.identity);
+                cloneProject = Instantiate(projectprefab, transform.position, Quaternion.identity);
+                cloneProject.GetComponent<Movement2D>().MoveTo(new Vector3(-0.2f, 1, 0));
+
+                cloneProject = Instantiate(projectprefab, transform.position, Quaternion.identity);
+                cloneProject.GetComponent<Movement2D>().MoveTo(new Vector3(0.2f, 1, 0));
+                break;
+        }
+    }
+}*/
+//메인 카메라
+/*
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class MainCamera : MonoBehaviour
+{
+    public GameObject player;
+    private Vector3 vec;
+
+    void Start()
+    {
+
+    }
+    void LateUpdate()
+    {
+        vec = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
+        transform.position = vec;
+    }
+}*/
+//wall
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Makewall : MonoBehaviour
+{
+    private SpriteRenderer spriteRenderer;
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        Destroy(gameObject, 3.0f); // 3초뒤에 자동 삭제 
+
+    }
+    private void OnTriggerEnter2D(Collider2D collider) // 오브젝트끼리 충돌시 삭제 
+    {
+        Destroy(collider.gameObject);
+
+    }
+}*/
+
+//Enemy
+/*using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public float speed; //속도
+    public int health; //체력
+    public Sprite[] sprites;
+
+    SpriteRenderer spriteRenderer;
+    Rigidbody2D rigid;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rigid = GetComponent<Rigidbody2D>();
+        rigid.velocity = Vector2.down * speed;
+    }
+
+    void OnHit(int dmg)
+    {
+        health -= dmg;
+        spriteRenderer.sprite = sprites[1];  //피격시 모양 변경
+        Invoke("ReturnSprite", 0.1f);
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+}
+*/
